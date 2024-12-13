@@ -42,12 +42,13 @@ server.on('connection', (channel) => {
 
     channel.on('message', (data) => {
         const parsedData = JSON.parse(data)
-
+        console.log(parsedData)
         switch (parsedData.type) {
             case ("START-GAME"):
                 game.start()
                 break
             case ("MOVE-PLAYER"):
+                console.log('moved')
                 game.movePlayer1(parsedData.payload)
                 break
             case ("RETURN-TO-MAIN"):
@@ -56,18 +57,6 @@ server.on('connection', (channel) => {
             case ("CHANGE-SETTINGS"):
                 settings.settings = parsedData.payload
                 break
-            // case ("MOVE-UP"):
-            //     game.movePlayer1(MOVE_DIRECTIONS.UP)
-            //     break
-            // case ("MOVE-DOWN"):
-            //     game.movePlayer1(MOVE_DIRECTIONS.DOWN)
-            //     break
-            // case ("MOVE-RIGHT"):
-            //     game.movePlayer1(MOVE_DIRECTIONS.RIGHT)
-            //     break
-            // case ("MOVE-LEFT"):
-            //     game.movePlayer1(MOVE_DIRECTIONS.LEFT)
-            //     break
             default:
                 throw new Error("wrong type")
         }

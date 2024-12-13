@@ -6,8 +6,6 @@ import {GAME_STATUSES} from "./utils/GAME_STATUSES.js";
 
 export class Game {
     #status = GAME_STATUSES.PENDING
-    // #jumpSound = new Audio('src/assets/audio/jumpSound.wav')
-    // #googleJumpSound = new Audio('src/assets/audio/googleJumpSound.wav')
     #google
     #player1
     #player2
@@ -78,6 +76,7 @@ export class Game {
             this.#settings.gridSize.rowsCount
         )
         this.#google = new Google(position, "Google")
+
     }
 
     #setAPlayer1() {
@@ -100,7 +99,7 @@ export class Game {
     #movePlayer(direction, player, otherPlayer) {
         if (this.#status === GAME_STATUSES.IN_PROGRESS) {
             const newPosition = player.clonePosition()
-
+            console.log('newPosition: ', newPosition)
             switch (direction) {
                 case MOVE_DIRECTIONS.UP:
                     newPosition.y--
@@ -155,7 +154,6 @@ export class Game {
         this.#notify()
     }
 
-    // post/mutation/action/setter
     start() {
         this.#status = GAME_STATUSES.IN_PROGRESS
 
@@ -166,6 +164,8 @@ export class Game {
         this.#setAPlayer1()
 
         this.#setAPlayer2()
+
+        this.#notify()
 
         if (this.#settings.isGoogleShouldMove) {
             this.#googleInterval = setInterval(() => {
